@@ -91,8 +91,8 @@ const main = async () => {
   const { data } = await run()
 
   core.setOutput('APPETIZE_APP_URL', data.appURL)
-  core.setOutput('APPETIZE_MANAGE_URL', data.manageURL)
   core.setOutput('APPETIZE_PUBLIC_KEY', data.publicKey)
+  core.setSecret('APPETIZE_MANAGE_URL', data.manageURL)
 }
 
 main().catch(err => core.setFailed(err.message))
