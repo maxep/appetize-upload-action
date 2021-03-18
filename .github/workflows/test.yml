@@ -1,0 +1,16 @@
+name: "test"
+on: push
+
+jobs:
+
+  # test action works running from the graph
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./
+      with:
+        api-token: ${{ secrets.APPETIZE_TOKEN }} 
+        public-key: ${{ secrets.APPETIZE_PUBLIC_KEY }} 
+        file-path: ./test/app.zip
+        platform: 'ios'

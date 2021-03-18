@@ -1,0 +1,36 @@
+name: 'Appetize Upload Action'
+description: 'Upload Android or iOS app to Appetize.io'
+author: 'Maxime Epain'
+branding:
+    icon: 'square'  
+    color: 'yellow'
+inputs:
+    api-host:
+        description: 'Appetize API host'
+        required: false
+        default: 'api.appetize.io'
+    api-token:
+        description: 'Appetize.io API Token'
+        required: true
+    file-url:
+        description: 'URL from which the app file can be fetched. Alternative to file-path'
+        required: false
+    platform:
+        description: 'Platform. Either `ios` or `android`'
+        required: true
+    file-path:
+        description: 'Path to app build on the local filesystem. Either this or `file-url` must be specified'
+        required: false
+    public-key:
+        description: 'If not provided, a new app will be created. If provided, the existing build will be overwritten'
+        required: false
+    note:
+        description: 'Notes you wish to add to the uploaded app'
+        required: false
+    timeout:
+        description: 'The number of seconds to wait until automatically ending the session due to user inactivity. Must be 30, 60, 90, 120, 180, 300, 600, 1800, 3600 or 7200. Default is 120'
+        required: false
+        default: '120'
+runs:
+    using: 'node12'
+    main: 'dist/index.js'
