@@ -8,9 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./
+    
+    - name: Upload File
+      uses: ./
       with:
         api-token: ${{ secrets.APPETIZE_TOKEN }} 
         public-key: ${{ secrets.APPETIZE_PUBLIC_KEY }} 
-        file-path: ./test/app.zip
+        file-path: test/app.zip
+        platform: 'ios'
+
+    - name: Upload URL
+      uses: ./
+      with:
+        api-token: ${{ secrets.APPETIZE_TOKEN }} 
+        public-key: ${{ secrets.APPETIZE_PUBLIC_KEY }} 
+        file-url: https://github.com/maxep/appetize-upload-action/raw/master/test/app.zip
         platform: 'ios'

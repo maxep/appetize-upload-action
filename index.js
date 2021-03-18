@@ -16,9 +16,6 @@ const main = async () => {
     timeout: core.getInput('timeout'),
   }
 
-  if (!args.url && !args.path) 
-    throw 'Either `file-path` or `file-url` must be specified'
-
   if (args.platform !== 'ios' && args.platform !== 'android') 
     throw '`platform` is either `ios` or `android`'
 
@@ -56,7 +53,7 @@ const main = async () => {
    */
   const upload = async () => {
     const form = new FormData()
-    form.append('file', fs.createReadStream(args.path))
+    form.append('file', fs.createReadStream(args.file))
 
     if (args.platform)  form.append('platform', args.platform)
     if (args.note)      form.append('note', args.note)
@@ -70,7 +67,7 @@ const main = async () => {
       }
     )
 
-    fs.unlinkSync(args.path)
+    fs.unlinkSync(args.file)
     return result
   }
 
@@ -80,10 +77,12 @@ const main = async () => {
    */
   const run = async () => {
     if (args.url) return await post()
-    if (args.path) return await upload()
+    if (args.file) return await upload()
+    throw 'Either `file-path` or `file-url` must be specified'
   }
 
   const { data } = await run()
+
   core.setOutput('APPETIZE_APP_URL', data.appURL)
   core.setOutput('APPETIZE_MANAGE_URL', data.manageURL)
   core.setOutput('APPETIZE_PUBLIC_KEY', data.publicKey)
